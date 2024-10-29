@@ -116,3 +116,51 @@ print(destroyer.status())
 print(cruiser.activate())
 print(cruiser.attack())
 print(cruiser.status())
+
+#task3
+class Money:
+    exchange_rate = 0.027
+
+    def __init__(self, whole=0, cents=0, currency='UAH'):
+        self.whole = whole
+        self.cents = cents
+        self.currency = currency
+        self.normalize()
+
+    def set_whole(self, whole):
+        self.whole = whole
+
+    def set_cents(self, cents):
+        self.cents = cents
+        self.normalize()
+
+    def normalize(self):
+        if self.cents >= 100:
+            extra_whole = self.cents // 100
+            self.whole += extra_whole
+            self.cents = self.cents % 100
+
+    def display(self):
+        return f"{self.whole}.{self.cents:02d} {self.currency}"
+
+    def convert_to_usd(self):
+        if self.currency == 'UAH':
+            total_in_uah = self.whole + self.cents / 100
+            dollars = total_in_uah * Money.exchange_rate
+            return round(dollars, 2)
+        else:
+            raise ValueError("Конвертація доступна тільки для гривень.")
+
+    def convert_to_uah(self):
+        if self.currency == 'USD':
+            total_in_usd = self.whole + self.cents / 100
+            uah = total_in_usd / Money.exchange_rate
+            return round(uah, 2)
+
+    def show_bill(self):
+        return f"Bill:\nAmount: {self.display()}\nTotal in UAH: {self.convert_to_uah() if self.currency == 'USD' else 'N/A'}\nTotal in USD: {self.convert_to_usd() if self.currency == 'UAH' else 'N/A'}"
+
+money_uah = Money(100, 50, 'UAH')
+print(money_uah.show_bill())
+money_usd = Money(10, 0, 'USD')
+print(money_usd.show_bill())
