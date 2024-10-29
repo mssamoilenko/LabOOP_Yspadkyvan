@@ -63,3 +63,56 @@ meat_grinder = MeatGrinder("Bosch", "MG-500", 2018, 0.8, "150$")
 print(meat_grinder.grind_meat())
 meat_grinder.power(True)
 print(meat_grinder.grind_meat())
+
+#task2
+class Ship:
+    def __init__(self, name, year_built):
+        self.name = name
+        self.year_built = year_built
+        self.is_operational = False
+
+    def activate(self):
+        self.is_operational = True
+        return f"{self.name} is now active."
+
+    def deactivate(self):
+        self.is_operational = False
+        return f"{self.name} is now deactivated."
+
+    def status(self):
+        status = "active" if self.is_operational else "inactive"
+        return f"{self.name} (Year: {self.year_built}) is currently {status}."
+
+class Frigate(Ship):
+    def patrol(self):
+        if self.is_operational:
+            return f"{self.name} is patrolling the waters."
+        return f"{self.name} is inactive and cannot patrol."
+
+class Destroyer(Ship):
+    def defend(self):
+        if self.is_operational:
+            return f"{self.name} is defending the fleet."
+        return f"{self.name} is inactive and cannot defend."
+
+class Cruiser(Ship):
+    def attack(self):
+        if self.is_operational:
+            return f"{self.name} is attacking the target."
+        return f"{self.name} is inactive and cannot attack."
+
+frigate = Frigate("Simple Frigate", 2005)
+destroyer = Destroyer("Simple Destroyer", 2010)
+cruiser = Cruiser("Simple Cruiser", 2000)
+
+print(frigate.activate())
+print(frigate.patrol())
+print(frigate.status())
+
+print(destroyer.activate())
+print(destroyer.defend())
+print(destroyer.status())
+
+print(cruiser.activate())
+print(cruiser.attack())
+print(cruiser.status())
